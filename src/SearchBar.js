@@ -1,11 +1,12 @@
 import "./SearchBar.css";
 import { useState } from "react";
 
-function SearchBar() {
+function SearchBar(props) {
   const [searchWord, setSearchWord] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    props.onSearch(searchWord);
   };
 
   return (

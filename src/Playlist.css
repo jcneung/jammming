@@ -1,0 +1,13 @@
+.playlist {
+  width: 350px;
+}
+
+.playlist-name {
+  width: 100%;
+}
+
+.save-button {
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-top: 16px;
+}

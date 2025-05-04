@@ -1,33 +1,43 @@
 import "./App.css";
 import { tracks } from "./data";
+import { useState } from "react";
 import SearchBar from "./SearchBar";
-import Track from "./Track";
+import SearchResult from "./SearchResult";
+import Playlist from "./Playlist";
 
 document.title = "Jammming";
 
 function App() {
+  const [searchResult, setSearchResult] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
+
   const addTrack = (track) => {
-    alert(`I add ${JSON.stringify(track)}`);
+    if (playlist.some((savedTrack) => savedTrack.id === track.id)) {
+      return;
+    }
+    setPlaylist((prevPlaylist) => {
+      return [...prevPlaylist, track];
+    });
   };
 
   const removeTrack = (track) => {
-    alert(`I remove ${JSON.stringify(track)}`);
+    setPlaylist((prevPlaylist) => {
+      return prevPlaylist.filter((current) => current.id !== track.id);
+    });
+  };
+
+  const searchHandle = (word) => {
+    setSearchResult(tracks);
   };
 
   return (
     <div className="App">
       <h1>Jammming</h1>
-      <SearchBar />
-      {tracks.map((track) => {
-        return (
-          <Track
-            track={track}
-            isRemoval={true}
-            onAdd={addTrack}
-            onRemove={removeTrack}
-          />
-        );
-      })}
+      <SearchBar onSearch={searchHandle} />
+      <div className="container">
+        <SearchResult tracks={searchResult} onAdd={addTrack} />
+        <Playlist tracks={playlist} onRemove={removeTrack} />
+      </div>
     </div>
   );
 }
