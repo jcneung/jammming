@@ -10,6 +10,7 @@ document.title = "Jammming";
 function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [playlist, setPlaylist] = useState([]);
+  const [playlistName, setPlaylistName] = useState("");
 
   const addTrack = (track) => {
     if (playlist.some((savedTrack) => savedTrack.id === track.id)) {
@@ -30,13 +31,22 @@ function App() {
     setSearchResult(tracks);
   };
 
+  const handleChangePlaylistName = (newPlaylistName) => {
+    setPlaylistName(newPlaylistName);
+  };
+
   return (
     <div className="App">
       <h1>Jammming</h1>
       <SearchBar onSearch={searchHandle} />
       <div className="container">
         <SearchResult tracks={searchResult} onAdd={addTrack} />
-        <Playlist tracks={playlist} onRemove={removeTrack} />
+        <Playlist
+          tracks={playlist}
+          onRemove={removeTrack}
+          playlistName={playlistName}
+          onChangeName={handleChangePlaylistName}
+        />
       </div>
     </div>
   );

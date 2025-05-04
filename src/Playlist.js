@@ -2,6 +2,10 @@ import "./Playlist.css";
 import TrackList from "./TrackList";
 
 function Playlist(props) {
+  const handleChange = (e) => {
+    props.onChangeName(e.target.value);
+  };
+
   return (
     <div className="playlist">
       <h2>Playlist</h2>
@@ -9,6 +13,8 @@ function Playlist(props) {
         className="playlist-name"
         type="text"
         placeholder="Playlist name"
+        value={props.playlistName}
+        onChange={handleChange}
       />
       <TrackList
         tracks={props.tracks}
